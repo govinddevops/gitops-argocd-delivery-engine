@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🚀 GitOps ArgoCD Delivery Engine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#0d1117;color:#e6edf3;font-family:'Inter',sans-serif;min-height:100vh;}
+  .grid-bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:50px 50px;z-index:0;}
+  .container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 20px;}
+  .header{text-align:center;padding:60px 0 40px;}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px;}
+  .badge{background:#161b22;border:1px solid #30363d;border-radius:20px;padding:6px 14px;font-size:12px;font-family:'JetBrains Mono',monospace;color:#00d4ff;}
+  .badge.green{color:#3fb950;border-color:#3fb950;}
+  .badge.orange{color:#f78166;border-color:#f78166;}
+  .badge.purple{color:#bc8cff;border-color:#bc8cff;}
+  h1{font-size:3rem;font-weight:700;background:linear-gradient(135deg,#00d4ff,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+  .subtitle{color:#8b949e;font-size:1.1rem;margin-bottom:20px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:40px 0;}
+  .card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;transition:all 0.3s;position:relative;overflow:hidden;}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00d4ff,#bc8cff);}
+  .card:hover{border-color:#00d4ff;transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,212,255,0.1);}
+  .card-icon{font-size:2rem;margin-bottom:12px;}
+  .card h3{font-size:1rem;font-weight:600;margin-bottom:8px;}
+  .card p{font-size:0.85rem;color:#8b949e;line-height:1.6;}
+  .pipeline{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:30px;margin:20px 0;}
+  .pipeline h2{color:#00d4ff;font-family:'JetBrains Mono',monospace;font-size:1rem;margin-bottom:20px;}
+  .stages{display:flex;flex-wrap:wrap;align-items:center;gap:8px;}
+  .stage{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:0.8rem;display:flex;align-items:center;gap:8px;}
+  .stage.done{border-color:#3fb950;color:#3fb950;}
+  .stage.active{border-color:#00d4ff;color:#00d4ff;animation:pulse 2s infinite;}
+  .arrow{color:#30363d;font-size:1.2rem;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+  .status-bar{display:flex;gap:20px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin:20px 0;flex-wrap:wrap;}
+  .stat{text-align:center;flex:1;min-width:100px;}
+  .stat-value{font-size:1.8rem;font-weight:700;color:#00d4ff;font-family:'JetBrains Mono',monospace;}
+  .stat-label{font-size:0.75rem;color:#8b949e;margin-top:4px;}
+  .gitops-flow{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:30px;margin:20px 0;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:2;}
+  .gitops-flow h2{color:#bc8cff;font-size:1rem;margin-bottom:20px;}
+  .flow-line{color:#8b949e;}
+  .flow-line span{color:#3fb950;}
+  .flow-line .blue{color:#00d4ff;}
+  .flow-line .purple{color:#bc8cff;}
+  .footer{text-align:center;padding:40px 0;color:#8b949e;font-size:0.85rem;border-top:1px solid #30363d;margin-top:40px;}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="container">
+  <div class="header">
+    <div class="badge-row">
+      <span class="badge green">● Live</span>
+      <span class="badge purple">☸️ ArgoCD</span>
+      <span class="badge">🐳 Docker</span>
+      <span class="badge">⚙️ GitOps</span>
+      <span class="badge green">✅ GitHub Actions</span>
+      <span class="badge orange">🚀 {{ version }}</span>
+      <span class="badge">🌍 {{ environment }}</span>
+    </div>
+    <h1>GitOps ArgoCD<br/>Delivery Engine</h1>
+    <p class="subtitle">Production-grade GitOps platform by <span style="color:#00d4ff;font-weight:600">Govind</span><br/>Powered by ArgoCD · Kubernetes · Docker · GitHub Actions</p>
+  </div>
+
+  <div class="status-bar">
+    <div class="stat"><div class="stat-value">99.9%</div><div class="stat-label">Uptime SLA</div></div>
+    <div class="stat"><div class="stat-value">{{ version }}</div><div class="stat-label">Current Version</div></div>
+    <div class="stat"><div class="stat-value">2</div><div class="stat-label">Environments</div></div>
+    <div class="stat"><div class="stat-value">GitOps</div><div class="stat-label">Deploy Strategy</div></div>
+  </div>
+
+  <div class="gitops-flow">
+    <h2>🔄 GITOPS WORKFLOW</h2>
+    <div class="flow-line">📝 <span>Developer</span> pushes code → <span class="blue">GitHub Repository</span></div>
+    <div class="flow-line">⚡ <span class="blue">GitHub Actions</span> → Lint · Test · Build · Push Image</div>
+    <div class="flow-line">🏷️  Image tagged → <span class="blue">govinddevopsdocker/gitops-app:v{build}</span></div>
+    <div class="flow-line">📋 <span>Manifest updated</span> → K8s YAML image tag bumped automatically</div>
+    <div class="flow-line">👁️  <span class="purple">ArgoCD</span> detects Git drift → triggers sync</div>
+    <div class="flow-line">☸️  <span class="purple">Kubernetes</span> rolling update → zero downtime deploy</div>
+    <div class="flow-line">✅ <span>Health checks pass</span> → deployment confirmed live</div>
+  </div>
+
+  <div class="pipeline">
+    <h2>⚙️ GITHUB ACTIONS PIPELINE</h2>
+    <div class="stages">
+      <div class="stage done">✅ 📥 Checkout</div>
+      <div class="arrow">→</div>
+      <div class="stage done">✅ 🧪 Test</div>
+      <div class="arrow">→</div>
+      <div class="stage done">✅ 🔍 Lint</div>
+      <div class="arrow">→</div>
+      <div class="stage done">✅ 🐳 Build</div>
+      <div class="arrow">→</div>
+      <div class="stage done">✅ 📤 Push</div>
+      <div class="arrow">→</div>
+      <div class="stage active">🔄 ArgoCD Sync</div>
+      <div class="arrow">→</div>
+      <div class="stage done">✅ ❤️ Health</div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">☸️</div>
+      <h3>ArgoCD GitOps</h3>
+      <p>Declarative continuous delivery using ArgoCD. Git is the single source of truth. Every change is tracked, audited and auto-synced to Kubernetes.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>GitHub Actions CI</h3>
+      <p>Automated pipeline on every push — lint, test, build Docker image, push to DockerHub, update K8s manifests with new image tag automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🐳</div>
+      <h3>Docker Multi-Stage</h3>
+      <p>Optimized production image using multi-stage builds. Minimal attack surface, reduced image size, production-hardened runtime configuration.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌍</div>
+      <h3>Multi-Environment</h3>
+      <p>Kustomize overlays for dev and prod environments. Environment-specific configs without duplicating manifests. Clean separation of concerns.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <h3>Security Hardened</h3>
+      <p>Non-root container user, read-only filesystem, Kubernetes Secrets management, resource limits enforced on all workloads.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Health Monitoring</h3>
+      <p>Kubernetes liveness and readiness probes configured. Automatic rollback on failed deployments. Zero-downtime rolling updates.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Built with ❤️ by <span style="color:#00d4ff;font-weight:600">Govind</span> · Junior DevOps Engineer</p>
+    <p style="margin-top:8px;">🐳 Docker · ☸️ Kubernetes · 🔄 ArgoCD · ⚙️ GitHub Actions · 🐧 Linux</p>
+  </div>
+</div>
+</body>
+</html>
+
