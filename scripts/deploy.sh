@@ -1,11 +1,7 @@
 #!/bin/bash
-echo "Starting deployment..."
+echo "Deploying gitops-app..."
 docker pull govinddevopsdocker/gitops-app:latest
 docker stop gitops-app || true
 docker rm gitops-app || true
-docker run -d \
-  --name gitops-app \
-  --restart unless-stopped \
-  -p 5000:5000 \
-  govinddevopsdocker/gitops-app:latest
-echo "Deployment complete!"
+docker run -d --name gitops-app --restart unless-stopped -p 5000:5000 govinddevopsdocker/gitops-app:latest
+echo "Done!"
